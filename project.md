@@ -4,7 +4,7 @@ Spending control
 Alice sends 1000 TOKEN to the contract CTR.
 
 CTR registers Alice's balance. The contract verifies that this is a
-particlar token on a known token contract.
+particular token on a known token contract.
 
 Alice executes `CTR->pay(Bob, "1.0000 TOKEN", memo)`, and CTR transfers the
 token from Alice's balance to Bob.
@@ -21,6 +21,9 @@ check the contract name of the token.
 
 Extra excercises
 ----------------
+
+* Let the users register themselves first at CTR, and only then accept
+  payments from them.
 
 * Extend CTR to accept any token for deposits and spending, even if
   multiple token contracts use the same symbol.
