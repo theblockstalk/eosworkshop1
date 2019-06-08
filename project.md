@@ -1,5 +1,20 @@
-Spending control
-================
+EOS workshop project: Spending control
+======================================
+
+Author: `cc32d9`, EOS Amsterdam. This work is licensed under a Creative
+Commons Attribution 4.0 International License.
+
+
+Task description
+----------------
+
+Create and deploy a smart contract as described below in Workflow
+section. Test the interaction in a testnet. If possible, proceed with
+homework tasks.
+
+
+Smart contract workflow
+-----------------------
 
 Alice sends 1000 TOKEN to the contract CTR.
 
@@ -19,8 +34,8 @@ Attacks to watch out: check that to=self on incoming transfer. Always
 check the contract name of the token.
 
 
-Extra excercises
-----------------
+Homework
+--------
 
 * Let the users register themselves first at CTR, and only then accept
   payments from them.
