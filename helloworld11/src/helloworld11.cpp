@@ -2,31 +2,28 @@
 
 ACTION helloworld11::hi(name user) {
   require_auth(user);
-  
   print("Hello, ", name{user});
-  
-  const auto msgItr = messages_tb.find(user.value);
-  if ( msgItr != messages_tb.end() ) {
-    print("\n", msgItr->msg);
+
+  const auto msgItr = customMessages.find(user.value);
+  if ( msgItr != customMessages.end() ) {
+    print("\n", msgItr->name);
   }
 }
 
+ACTION helloworld11::setmessage(name key, std::string message) {
+  require_auth(key);
 
-ACTION helloworld11::setmsg(name user, std::string msg) {
-  require_auth(user);
-  
-  const auto msgItr = messages_tb.find(user.value);
-  if ( msgItr == messages_tb.end() ) {
+  const auto msgItr = customMessages.find(key.value);
+  if ( msgItr == customMessages.end() ) {
     // Create a new table row
-    messages_tb.emplace(_self, [&](message_struct &m) {
-      m.user = user;
-      m.msg = msg;
+    customMessages.emplace(_self, [&](tableStruct &t) {
+      t.key = key;
+      t.name = message;
     });
   } else {
     // Modify a table row
-    messages_tb.modify(msgItr, _self, [&](message_struct &m) {
-      m.user = user;
-      m.msg = msg;
+    customMessages.modify(msgItr, _self, [&](tableStruct &t) {
+      t.name = message;
     });
   }
 }
