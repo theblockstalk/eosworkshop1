@@ -5,29 +5,25 @@ using namespace eosio;
 
 CONTRACT helloworld11 : public contract {
   public:
-    // Table definition
-    TABLE message_struct {
-      name user;
-      std::string msg;
-      
-      auto primary_key() const { return user.value; }
-      EOSLIB_SERIALIZE(message_struct, (user)(msg))
-    };
-    typedef eosio::multi_index<"messages"_n, message_struct> messages;
-    
-    // Constructor
-    helloworld11(eosio::name receiver, eosio::name code, datastream<const char*> ds) :
-      contract(receiver, code, ds), // constructure of eosio::contract
-      messages_tb(_self, _self.value) {}// table constructor eosio::multi_index<tablename, struct> tablename(code, scope)
+    using contract::contract;
+    helloworld11(eosio::name receiver, eosio::name code, datastream<const char*> ds):
+    contract(receiver, code, ds),
+    customMessages(_self, _self.value) {} // initializes the variable
 
-    // Public actions
     ACTION hi(name user);
-    
-    ACTION setmsg(name user, std::string msg);
-  
+
+    ACTION setmessage(name key, std::string message);
+
   private:
-    // Storage table variables
-    messages messages_tb;
+    TABLE tableStruct {
+      name key;
+      std::string name;
+
+      auto primary_key() const { return key.value; }
+    };
+    typedef eosio::multi_index<"table"_n, tableStruct> table;
+
+    table customMessages;
 };
 
-EOSIO_DISPATCH(helloworld11, (hi)(setmsg))
+EOSIO_DISPATCH(helloworld11, (hi)(setmessage)) // this can be deleted
