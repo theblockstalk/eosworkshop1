@@ -32,8 +32,6 @@ void spendingctrl::transfer(const name from, const name to, const asset quantity
   }
 }
 
-
-
     
 void spendingctrl::setdaylimit(name user, asset limit) {
   
@@ -55,15 +53,23 @@ void spendingctrl::setdaylimit(name user, asset limit) {
   } else {
     users.modify(itr, user, [&](auto& row){
       row.limit = limit;
-      // row.last_withdrawal = time_point_sec(current_time_point() + hours(24));
     });
   }
 }
 
 
 
-
-
+void spendingctrl::clear(name user) {
+  auto self = get_self();
+  
+  require_auth(self);
+  users_table users(self, user.value);
+  
+  auto itr = users.begin();
+  while (itr != users.end()) {
+    itr = users.erase(itr);
+  }
+}
 
 
 

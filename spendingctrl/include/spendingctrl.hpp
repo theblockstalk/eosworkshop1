@@ -21,12 +21,12 @@ CONTRACT spendingctrl : public contract {
     [[eosio::on_notify("eosio.token::transfer")]]
     void transfer(const name from, const name to, const asset quantity, string& memo);
     
+    ACTION clear(name user);
   private:
   
     TABLE user {
-      name      user;
-      // asset     balance;
-      asset     limit;
+      name user;
+      asset limit;
       time_point_sec  last_withdrawal;
       
       uint64_t primary_key() const { return user.value; }
