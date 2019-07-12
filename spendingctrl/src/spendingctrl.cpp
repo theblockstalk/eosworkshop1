@@ -8,33 +8,28 @@ void spendingctrl::transfer(const name from, const name to, const asset quantity
   auto sym = quantity.symbol.code();
   users_table users(self, sym.raw());
     
-  // if (from == self) {
-  //   print("\n wallet withdrawal");
-  //   // TODO: throw error. you cannot transfer out of this contract without the withdraw function
+  if (from == self) {
+    print("\n wallet withdrawal");
+
+    auto itr = users.find(to.value);
     
-  //   // limit transfer to limit. if not throw error...
-  //   // check transfer not done in < 24 hours
-  //   // check amount < limit
-  //   // check amount < balance .... do we even need to track balance???
-  //   // transfer...
-    
-  //   // do nothing (allow transfer to occure)
-  // } else if (to == self) {
-  //   print("\n wallet deposit");
-  //   auto itr = users.find(to.value);
-    
-  //   auto ram_payer = to;
-  //   if ( itr != users.end() ) {
-  //     users.modify(itr, ram_payer, [&](auto& row) {
-  //       // row.balance += quantity;
-  //     });
-  //   } else {
-  //     users.emplace(ram_payer, [&](auto& row) {
-  //       row.user = to;
-  //       // row.balance = quantity;
-  //     });
-  //   }
-  // }
+    if ( itr != users.end()) {
+      asset limit = itr->limit;
+      print("\n this token has a withdrawal limit of ", limit.to_string());
+      
+      eosio::check(limit.amount >= quantity.amount, "cannot withdraw more than limit");
+      eosio::check(itr->last_withdrawal < time_point_sec(current_time_point() - hours(24)), "cannot withdraw more than once per 24 hours");
+      
+      auto ram_payer = to;
+      users.modify(itr, ram_payer, [&](auto& row) {
+        row.last_withdrawal = current_time_point();
+      });
+    } else {
+      print("\n no withdrawal limit for this asset");
+    }
+  } else if (to == self) {
+    print("\n wallet deposit");
+  }
 }
 
 
@@ -52,7 +47,7 @@ void spendingctrl::setdaylimit(name user, asset limit) {
   
   auto itr = users.find(user.value);
   
-  if(itr != users.end()){
+  if(itr == users.end()){
     users.emplace(user, [&](auto& row){
       row.user = user;
       row.limit = limit;

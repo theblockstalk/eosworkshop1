@@ -2,6 +2,7 @@
 #include <eosio/print.hpp>
 #include <eosio/asset.hpp>
 #include <eosio/name.hpp>
+#include <eosio/system.hpp>
 // #include <eosio/singleton.hpp>
 
 #include <string>
