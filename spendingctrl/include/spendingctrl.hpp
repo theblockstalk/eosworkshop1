@@ -18,16 +18,19 @@ CONTRACT spendingctrl : public contract {
     
     ACTION setdaylimit(name user, asset limit);
     
-    [[eosio::on_notify("eosio.token::transfer")]]
-    void transfer(const name from, const name to, const asset quantity, string& memo);
+    ACTION withdrawal(const name user, const asset quantity, string& memo);
     
+    [[eosio::on_notify("eosio.token::transfer")]] void ontransfer(const name from, const name to, const asset quantity, string& memo);
+    
+    // A handy function while testing and developing a contract. Should not exist in final contract
     ACTION clear(name user);
+
   private:
   
     TABLE user {
       name user;
       asset limit;
-      time_point_sec  last_withdrawal;
+      time_point_sec last_withdrawal;
       
       uint64_t primary_key() const { return user.value; }
     };
