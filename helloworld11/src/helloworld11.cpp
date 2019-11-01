@@ -1,6 +1,6 @@
 #include <helloworld11.hpp>
 
-ACTION helloworld11::hi(name from, string message) {
+ACTION helloworld11::hi(name from, string message, uint64_t plus_x) {
   require_auth(from);
 
   // Init the _message table
@@ -13,11 +13,13 @@ ACTION helloworld11::hi(name from, string message) {
     _messages.emplace(from, [&](auto& msg) {
       msg.user = from;
       msg.text = message;
+      msg.x = plus_x;
     });
   } else {
     // Modify a message record if it exists
     _messages.modify(msg_itr, from, [&](auto& msg) {
       msg.text = message;
+      msg.x = msg_itr->x + plus_x;
     });
   }
 }
