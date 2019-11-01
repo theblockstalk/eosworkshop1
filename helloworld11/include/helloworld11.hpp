@@ -1,29 +1,20 @@
-#include <eosiolib/eosio.hpp>
-#include <eosiolib/print.hpp>
+#include <eosio/eosio.hpp>
 
+using namespace std;
 using namespace eosio;
 
 CONTRACT helloworld11 : public contract {
   public:
     using contract::contract;
-    helloworld11(eosio::name receiver, eosio::name code, datastream<const char*> ds):
-    contract(receiver, code, ds),
-    customMessages(_self, _self.value) {} // initializes the variable
 
-    ACTION hi(name user);
-
-    ACTION setmessage(name key, std::string message);
+    ACTION hi(name from, string message);
+    ACTION clear();
 
   private:
-    TABLE tableStruct {
-      name key;
-      std::string name;
-
-      auto primary_key() const { return key.value; }
+    TABLE messages {
+      name    user;
+      string  text;
+      auto primary_key() const { return user.value; }
     };
-    typedef eosio::multi_index<"table"_n, tableStruct> table;
-
-    table customMessages;
+    typedef multi_index<name("messages"), messages> messages_table;
 };
-
-EOSIO_DISPATCH(helloworld11, (hi)(setmessage)) // this can be deleted
