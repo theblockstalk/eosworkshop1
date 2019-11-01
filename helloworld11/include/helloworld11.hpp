@@ -8,13 +8,13 @@ CONTRACT helloworld11 : public contract {
   public:
     using contract::contract;
 
-    ACTION hi(name from, string message);
+    ACTION hi(name from, const checksum256 &message_hash);
     ACTION clear();
 
   private:
     TABLE messages {
       name    user;
-      string  text;
+      checksum256 hash;
       time_point last_updated;
       auto primary_key() const { return user.value; }
     };

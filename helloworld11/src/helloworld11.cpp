@@ -1,6 +1,6 @@
 #include <helloworld11.hpp>
 
-ACTION helloworld11::hi(name from, string message) {
+ACTION helloworld11::hi(name from, const checksum256 &message_hash) {
   require_auth(from);
 
   // Init the _message table
@@ -13,13 +13,13 @@ ACTION helloworld11::hi(name from, string message) {
     // Create a message record if it does not exist
     _messages.emplace(from, [&](auto& msg) {
       msg.user = from;
-      msg.text = message;
+      msg.hash = message_hash;
       msg.last_updated = last_updated;
     });
   } else {
     // Modify a message record if it exists
     _messages.modify(msg_itr, from, [&](auto& msg) {
-      msg.text = message;
+      msg.hash = message_hash;
       msg.last_updated = last_updated;
     });
   }
