@@ -32,6 +32,12 @@ ACTION helloworld11::hiverify(name from, string message) {
   // Find the record from _messages table
   auto msg_itr = _messages.find(from.value);
   if (msg_itr != _messages.end()) {
+    const time_point now = current_time_point();
+    const time_point last_updated = msg_itr->last_updated;
+    const uint32_t elapsed_time_sec = now.sec_since_epoch() - last_updated.sec_since_epoch();
+    print(elapsed_time_sec);
+    check(elapsed_time_sec < 60, "Can only verify message within 1 minute");
+
     checksum256 hash = msg_itr->hash;
     assert_sha256(
       message.c_str(),
