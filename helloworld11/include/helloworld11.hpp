@@ -1,5 +1,6 @@
 #include <eosio/eosio.hpp>
 #include <eosio/system.hpp>
+#include <eosio/crypto.hpp>
 
 using namespace std;
 using namespace eosio;
@@ -9,6 +10,7 @@ CONTRACT helloworld11 : public contract {
     using contract::contract;
 
     ACTION hi(name from, const checksum256 &message_hash);
+    ACTION hiverify(name from, string message);
     ACTION clear();
 
   private:

@@ -25,6 +25,23 @@ ACTION helloworld11::hi(name from, const checksum256 &message_hash) {
   }
 }
 
+ACTION helloworld11::hiverify(name from, string message) {
+  // Init the _message table
+  messages_table _messages(get_self(), get_self().value);
+
+  // Find the record from _messages table
+  auto msg_itr = _messages.find(from.value);
+  if (msg_itr != _messages.end()) {
+    checksum256 hash = msg_itr->hash;
+    assert_sha256(
+      message.c_str(),
+      strlen(message.c_str()),
+      hash
+    );
+    msg_itr = _messages.erase(msg_itr);
+  }
+}
+
 ACTION helloworld11::clear() {
   require_auth(get_self());
 
@@ -37,4 +54,4 @@ ACTION helloworld11::clear() {
   }
 }
 
-EOSIO_DISPATCH(helloworld11, (hi)(clear))
+EOSIO_DISPATCH(helloworld11, (hi)(hiverify)(clear))
