@@ -1,10 +1,11 @@
 #include <helloworld11.hpp>
 
-ACTION helloworld11::hi(name from, string message, uint64_t plus_x) {
+ACTION helloworld11::hi(name from, string message) {
   require_auth(from);
 
   // Init the _message table
   messages_table _messages(get_self(), get_self().value);
+  time_point last_updated = current_time_point();
 
   // Find the record from _messages table
   auto msg_itr = _messages.find(from.value);
@@ -13,13 +14,13 @@ ACTION helloworld11::hi(name from, string message, uint64_t plus_x) {
     _messages.emplace(from, [&](auto& msg) {
       msg.user = from;
       msg.text = message;
-      msg.x = plus_x;
+      msg.last_updated = last_updated;
     });
   } else {
     // Modify a message record if it exists
     _messages.modify(msg_itr, from, [&](auto& msg) {
       msg.text = message;
-      msg.x = msg_itr->x + plus_x;
+      msg.last_updated = last_updated;
     });
   }
 }
