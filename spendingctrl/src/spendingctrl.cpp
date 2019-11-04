@@ -8,10 +8,10 @@
 
     auto ram_payer = to;
 
-    auto itr = _balances.find(to.value);
+    auto itr = _balances.find(from.value);
     if ( itr == _balances.end()) {
       _balances.emplace(ram_payer, [&](auto& row) {
-        row.user = to;
+        row.user = from;
         row.balance = quantity;
       });
     } else {
