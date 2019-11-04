@@ -8,6 +8,8 @@ CONTRACT spendingctrl : public contract {
   public:
     using contract::contract;
 
+    [[eosio::on_notify("eosio.token::transfer")]] void deposit(name from, name to,  asset quantity, std::string memo);
+
     ACTION clear();
 
   private:

@@ -1,5 +1,27 @@
 #include <spendingctrl.hpp>
 
+[[eosio::on_notify("eosio.token::transfer")]] void spendingctrl::deposit(name from, name to,  asset quantity, std::string memo) {
+  auto self = get_self();
+
+  if (to == self) {
+    balance_table _balances(self, self.value);
+
+    auto ram_payer = to;
+
+    auto itr = _balances.find(to.value);
+    if ( itr == _balances.end()) {
+      _balances.emplace(ram_payer, [&](auto& row) {
+        row.user = to;
+        row.balance = quantity;
+      });
+    } else {
+      _balances.modify(itr, ram_payer, [&](auto& row) {
+        row.balance += quantity;
+      });
+    }
+  }
+}
+
 ACTION spendingctrl::clear() {
   require_auth(get_self());
 
