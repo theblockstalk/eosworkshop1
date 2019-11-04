@@ -1,5 +1,6 @@
 #include <eosio/eosio.hpp>
 #include <eosio/asset.hpp>
+#include "eosio.token.hpp"
 
 using namespace std;
 using namespace eosio;
@@ -9,6 +10,8 @@ CONTRACT spendingctrl : public contract {
     using contract::contract;
 
     [[eosio::on_notify("eosio.token::transfer")]] void deposit(name from, name to,  asset quantity, std::string memo);
+
+    ACTION withdrawal(name user, asset quantity, std::string memo);
 
     ACTION clear();
 
