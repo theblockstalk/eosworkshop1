@@ -11,5 +11,3 @@ ACTION spendingctrl::clear() {
     msg_itr = _balances.erase(msg_itr);
   }
 }
-
-EOSIO_DISPATCH(spendingctrl, (clear))

@@ -16,5 +16,5 @@ CONTRACT spendingctrl : public contract {
       asset   balance;
       auto primary_key() const { return user.value; }
     };
-    typedef multi_index<name("messages"), balance> balance_table;
+    typedef multi_index<name("balance"), balance> balance_table;
 };
