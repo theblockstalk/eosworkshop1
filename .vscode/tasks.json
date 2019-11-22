@@ -4,12 +4,21 @@
     "version": "2.0.0",
     "tasks": [
         {
-            "label": "Build wasm and abi",
+            "label": "helloworld11: Build wasm and abi",
             "type": "shell",
             "group": "build",
             "command": "eosio-cpp -I include -R resource -o helloworld11.wasm -contract helloworld11 ./src/helloworld11.cpp --abigen",
             "options": {
                 "cwd": "./helloworld11"
+            },
+        },
+        {
+            "label": "spendingctrl: Build wasm and abi",
+            "type": "shell",
+            "group": "build",
+            "command": "eosio-cpp -I include -R resource -o spendingctrl.wasm -contract spendingctrl ./src/spendingctrl.cpp --abigen",
+            "options": {
+                "cwd": "./spendingctrl"
             },
         }
     ]
