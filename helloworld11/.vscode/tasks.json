@@ -4,12 +4,12 @@
     "version": "2.0.0",
     "tasks": [
         {
-            "label": "helloworld11: Build wasm and abi",
+            "label": "Build wasm and abi",
             "type": "shell",
             "group": "build",
             "command": "eosio-cpp -I contract/include -R resource -o build/helloworld11.wasm -contract helloworld11 ./contract/src/helloworld11.cpp --abigen",
             "options": {
-                "cwd": "${myDefaultIncludePath}"
+                "cwd": "./"
             },
         },
         {
@@ -17,7 +17,7 @@
             "type": "shell",
             "command": "nodeos --config ~/Documents/Apps/eosio/config/testing.ini >> nodeos.log 2>&1 &",
             "options": {
-                "cwd": "${myDefaultIncludePath}"
+                "cwd": "./"
             }
         },
         {
