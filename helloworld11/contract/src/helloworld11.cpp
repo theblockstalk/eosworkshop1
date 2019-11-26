@@ -25,7 +25,7 @@ ACTION helloworld11::hi(name from, const checksum256 &message_hash) {
   }
 }
 
-/*ACTION helloworld11::hiverify(name from, string message) {
+ACTION helloworld11::hiverify(name from, string message) {
   // Init the _message table
   messages_table _messages(get_self(), get_self().value);
 
@@ -46,7 +46,7 @@ ACTION helloworld11::hi(name from, const checksum256 &message_hash) {
     );
     msg_itr = _messages.erase(msg_itr);
   }
-}*/
+}
 
 ACTION helloworld11::clear() {
   require_auth(get_self());

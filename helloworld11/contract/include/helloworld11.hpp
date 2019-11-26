@@ -10,7 +10,7 @@ CONTRACT helloworld11 : public contract {
     using contract::contract;
 
     ACTION hi(name from, const checksum256 &message_hash);
-    //ACTION hiverify(name from, string message);
+    ACTION hiverify(name from, string message);
     ACTION clear();
 
   private:

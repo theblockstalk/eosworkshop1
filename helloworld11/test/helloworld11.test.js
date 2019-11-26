@@ -12,7 +12,8 @@ describe('helloworld11', function () {
 
     let contractAccount;
     let myAccount;
-
+    let messagesTable;
+    
     before(async () => {
         let accounts = await eoslime.Account.createRandoms(1);
         myAccount = accounts[0];
@@ -20,20 +21,34 @@ describe('helloworld11', function () {
 
     beforeEach(async () => {
         contractAccount = await eoslime.Contract.deploy(CONTRACT_WASM_PATH, CONTRACT_ABI_PATH);
+        messagesTable = contractAccount.messages;
     });
 
-    it('Should say store the hash', async () => {
-        const messagesTable = contractAccount.messages;
+    it('Should store the hash', async () => {
         let messages = await messagesTable.limit(10).find();
         
         assert.equal(messages.length, 0, "Should not have any rows yet");
         const messageString = "hello world";
-        const message_hash = crypto.sha256(messageString);
-        let tx = await contractAccount.hi(myAccount.name, message_hash, {from: myAccount});
+        const messageHash = crypto.sha256(messageString);
+        
+        await contractAccount.hi(myAccount.name, messageHash, {from: myAccount});
 
         messages = await messagesTable.equal(myAccount.name).find();
         const message = messages[0];
         assert.equal(message.user, myAccount.name, "account name not correct");
-        assert.equal(message.hash, message_hash, "hash was not stored in the table");
+        assert.equal(message.hash, messageHash, "hash was not stored in the table");
     });
+
+    it('Should verify the hash', async () => {
+        const messageString = "hello world";
+        const messageHash = crypto.sha256(messageString);
+
+        await contractAccount.hi(myAccount.name, messageHash, {from: myAccount});
+        messages = await messagesTable.equal(myAccount.name).find();
+        assert.equal(messages.length, 1, "hash was not added to the table");
+
+        await contractAccount.hiverify(myAccount.name, messageString);
+        messages = await messagesTable.equal(myAccount.name).find();
+        assert.equal(messages.length, 0, "hash was not removed from the table");
+    });    
 });
