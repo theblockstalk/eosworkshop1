@@ -6,13 +6,16 @@ cleos wallet import
 ## Create a new Testnet account
 https://monitor.jungletestnet.io/#account
 https://mon-test.telosfoundation.io/account-creation
+https://app.telos.net/testnet/developers
 
 ## Get some system tokens
 http://monitor.jungletestnet.io/#faucet
 https://mon-test.telosfoundation.io/faucet
+https://app.telos.net/testnet/developers
 
 ## Check it out on the blockchain
 https://eosauthority.com/account/hello5world1?network=jungle
+https://eosauthority.com/account/hello5world1?network=telostest
 
 ## Get some network resources
 cleos --url https://api.jungle.alohaeos.com system buyram hello5world1 hello5world1 "30.0000 EOS"
