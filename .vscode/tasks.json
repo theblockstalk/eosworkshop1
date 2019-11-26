@@ -20,6 +20,19 @@
             "options": {
                 "cwd": "./spendingctrl"
             },
+        },
+        {
+            "label": "Start nodeos",
+            "type": "shell",
+            "command": "nodeos --config ~/Documents/Apps/eosio/config/testing.ini >> nodeos.log 2>&1 &",
+            "options": {
+                "cwd": "./"
+            }
+        },
+        {
+            "label": "Stop nodeos",
+            "type": "shell",
+            "command": "pkill nodeos"
         }
     ]
 }
