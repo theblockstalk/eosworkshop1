@@ -7,11 +7,14 @@
         {
             "type": "node",
             "request": "launch",
-            "name": "Launch Program",
-            "skipFiles": [
-                "<node_internals>/**"
+            "name": "Mocha Tests",
+            "program": "${workspaceRoot}/node_modules/mocha/bin/mocha",
+            "args": [
+                "--inspect-brk",
+                "${workspaceFolder}/test/**/*.test.js"
             ],
-            "program": "${file}"
+            "port": 9229,
+            "internalConsoleOptions": "openOnSessionStart"
         }
     ]
 }
