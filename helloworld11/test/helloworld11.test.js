@@ -50,5 +50,5 @@ describe('helloworld11', function () {
         await contractAccount.hiverify(myAccount.name, messageString);
         messages = await messagesTable.equal(myAccount.name).find();
         assert.equal(messages.length, 0, "hash was not removed from the table");
-    });    
+    });
 });
