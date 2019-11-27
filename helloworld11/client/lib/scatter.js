@@ -1,9 +1,10 @@
 ScatterJS.plugins( new ScatterEOS() )
-let ScatJS = ScatterJS, ScatEOS = new ScatterEOS();
+// let ScatJS = ScatterJS, ScatEOS = new ScatterEOS();
 const JsonRpc = eosjs_jsonrpc.JsonRpc;
 const Api = eosjs_api.Api;
 
-let account, eos;
+let account; // account connected with scatter
+let eos; // instance of eos Api
 const CONTRACT_ACCOUNT = "hello5world1";
 
 const network = ScatterJS.Network.fromJson({
@@ -27,21 +28,17 @@ async function login() {
     account = ScatterJS.account('eos');
 }
 
-let walletContract = {}
-walletContract.hi = async function (message_hash) {
+const transact = async function(action, data) {
     try {
         const result = await eos.transact({
             actions: [{
                 account: CONTRACT_ACCOUNT,
-                name: 'hi',
+                name: action,
                 authorization: [{
                     actor: account.name,
                     permission: account.authority,
                 }],
-                data: {
-                    from: account.name,
-                    message_hash: message_hash
-                },
+                data: data,
             }]
         }, {
             blocksBehind: 3,
@@ -54,11 +51,25 @@ walletContract.hi = async function (message_hash) {
 
     } catch (e) {
         console.error(e);
-        let message = 'Caught exception: ' + e;
-        if (e instanceof JsonRpc.RpcError)
-        message += '\n\n' + JSON.stringify(e.json, null, 2);
+        let message = 'Caught exception: ' + JSON.stringify(e.json, null, 2);
         displayError(message)
     }
+}
+
+let walletContract = {}
+
+walletContract.hi = async function (message_hash) {
+    await transact("hi", {
+        from: account.name,
+        message_hash: message_hash
+    })
+}
+
+walletContract.hiverify = async function (accountName, message) {
+    await transact("hiverify", {
+        from: accountName,
+        message: message
+    })
 }
 
 walletContract.getMessages = async function() {

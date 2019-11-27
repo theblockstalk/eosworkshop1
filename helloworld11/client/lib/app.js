@@ -5,22 +5,32 @@ async function onload() {
     stringTosha256();
 }
 
-async function hiverifyTx() {
-}
-
 async function hiTx() {
     const message_hash = $("#message_hash").val();
     await walletContract.hi(message_hash);
     updateTable();
 }
 
+async function hiverifyTx() {
+    const message = $("#message").val();
+    const accountName = $("#account-name").val();
+    await walletContract.hiverify(accountName, message);
+    updateTable();
+}
+
 async function updateTable() {
     const tableRows = await walletContract.getMessages();
-    const row = tableRows.rows[0];
+    if (tableRows.rows && tableRows.rows.length === 1) {
+        const row = tableRows.rows[0];
     
-    $("#user-account").html(row.user);
-    $("#user-hash").html(row.hash);
-    $("#user-updated").html(row.last_updated);
+        $("#user-account").html(row.user);
+        $("#user-hash").html(row.hash);
+        $("#user-updated").html(row.last_updated);    
+    } else {
+        $("#user-account").html(account.name);
+        $("#user-hash").html("");
+        $("#user-updated").html("");    
+    }
 }
 
 async function stringTosha256() {

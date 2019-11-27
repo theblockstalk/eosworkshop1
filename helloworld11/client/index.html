@@ -14,19 +14,17 @@
     <script src='lib/bootstrap-4.3.1-dist/js/bootstrap.min.js'></script>
 
     <!-- Installattion for browser here https://github.com/EOSIO/eosjs -->
-    <script src='lib/eosjs-20.0.0-dist-web/debug/eosjs-api-debug.js'></script>
-    <script src='lib/eosjs-20.0.0-dist-web/debug/eosjs-jsonrpc-debug.js'></script>
-    <script src='lib/eosjs-20.0.0-dist-web/debug/eosjs-jssig-debug.js'></script>
+    <script src='lib/eosjs-20.0.0-dist-web/eosjs-api.js'></script>
+    <script src='lib/eosjs-20.0.0-dist-web/eosjs-jsonrpc.js'></script>
+    <script src='lib/eosjs-20.0.0-dist-web/eosjs-jssig.js'></script>
 
-    <!-- Scatter signature provider -->
+    <!-- Scatter signature provider, downloaded from cdn -->
     <script src="lib/scatter/scatterjs-core.min.js"></script>
     <script src="lib/scatter/scatterjs-plugin-eosjs2.min.js"></script>
 
     <!-- App styles and logic -->
     <script src='lib/utils.js'></script>
     <script src='lib/scatter.js'></script>
-    <!-- <script src='lib/eosio.js'></script> -->
-    <script src='lib/crypto.js'></script>
     <script src='lib/app.js'></script>
     <link rel='stylesheet' href='lib/main.css'>
   </head>
@@ -77,12 +75,12 @@
                 <form action="hiverify()">
                     <div class="form-group">
                         <label>Account name</label>
-                        <input class="form-control"></input>
+                        <input id="account-name" class="form-control"></input>
                     </div>
                     <div class="form-group">
                         <label>Message string</label>
-                        <input class="form-control"></input>
-                    </div>    
+                        <input id="message" class="form-control"></input>
+                    </div>
                     <button type="button" class="btn btn-primary" onclick="hiverifyTx()">hiverify()</button>
                 </form>
             </div>
@@ -107,7 +105,5 @@
             </div>
         </div>
     </div>
-    
-
   </body>
 </html>
