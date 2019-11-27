@@ -8,13 +8,14 @@
             "type": "node",
             "request": "launch",
             "name": "Mocha Tests",
-            "program": "${workspaceRoot}/node_modules/mocha/bin/mocha",
+            "program": "${workspaceRoot}/test/node_modules/mocha/bin/mocha",
             "args": [
                 "--inspect-brk",
-                "${workspaceFolder}/test/**/*.test.js"
+                "*.test.js"
             ],
             "port": 9229,
-            "internalConsoleOptions": "openOnSessionStart"
+            "internalConsoleOptions": "openOnSessionStart",
+            "cwd": "${workspaceFolder}/test"
         },
         {
             "name": "Launch index.html",

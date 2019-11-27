@@ -2,9 +2,6 @@
   "name": "helloworld11",
   "version": "1.0.0",
   "description": "Hello world smart contract",
-  "directories": {
-    "test": "test"
-  },
   "dependencies": {
     "eoslime": "^1.0.0",
     "mocha": "^6.2.2"

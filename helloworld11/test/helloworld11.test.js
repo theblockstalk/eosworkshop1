@@ -3,8 +3,8 @@ const eoslime = require('eoslime').init('local');
 const eos = eoslime.Provider.eos;
 const crypto = require("./crypto");
 
-const CONTRACT_WASM_PATH = './build/helloworld11.wasm';
-const CONTRACT_ABI_PATH = './build/helloworld11.abi';
+const CONTRACT_WASM_PATH = '../build/helloworld11.wasm';
+const CONTRACT_ABI_PATH = '../build/helloworld11.abi';
 
 describe('helloworld11', function () {
     // Increase mocha(testing framework) time, otherwise tests fails
