@@ -34,8 +34,19 @@
             <div align='center'>
                 <h1>Hello world!</h1>
                 <p>
-                    In this simple web application, we will send a hashed message to the blockchain,
-                    which can only be revealed by an account that had the original string.
+                    This simple web application allows one account to store a hash o the blockchain,
+                    and another account to reveal the original string.
+                </p>
+                <p>
+                    It has no central back end, and interacts with a smart contract on the
+                    <a href="https://jungletestnet.io">Jungle testnet</a>
+                    powered by <a href="https://eos.io">EOSIO</a>. It can be audited in real time by checking any
+                    <a href="https://eosauthority.com/account?account=hello5world1&network=jungle&scope=hello5world1&table=messages&limit=10&mode=contract&sub=tables">
+                        block explorer</a> or
+                    running a node.
+                </p>
+                <p>
+                    Source code <a href="https://github.com/theblockstalk/eosworkshop1/tree/master/helloworld11">here</a>.
                 </p>
             </div>
         </div>
@@ -68,7 +79,7 @@
                         <label>Message hash</label>
                         <input id="message_hash" class="form-control"></input>
                     </div>
-                    <button type="button" class="btn btn-primary" onclick="hiTx()">hi()</button>
+                    <button type="button" class="btn btn-primary" onclick="hiTx()">Store hash</button>
                 </form>
             </div>
             <div class='col-md-6'>
@@ -81,7 +92,7 @@
                         <label>Message string</label>
                         <input id="message" class="form-control"></input>
                     </div>
-                    <button type="button" class="btn btn-primary" onclick="hiverifyTx()">hiverify()</button>
+                    <button type="button" class="btn btn-primary" onclick="hiverifyTx()">Reveal string that was hashed</button>
                 </form>
             </div>
         </div>

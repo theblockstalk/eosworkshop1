@@ -28,7 +28,7 @@ async function login() {
     account = ScatterJS.account('eos');
 }
 
-const transact = async function(action, data) {
+const transact = async function(action, data, successMsg) {
     try {
         const result = await eos.transact({
             actions: [{
@@ -46,8 +46,8 @@ const transact = async function(action, data) {
         })
         const txId = result.transaction_id;
         const url = "https://eosauthority.com/transaction/" + txId + "?network=jungle";
-        const alertHtml = "Success. See transaction <a href='"+url+"'>here</a>";
-        displaySuccess(alertHtml);
+        const alertHtml = "See transaction <a href='"+url+"'>here</a>.";
+        displaySuccess("<b>" + successMsg + "</b> "+ alertHtml);
 
     } catch (e) {
         console.error(e);
@@ -62,14 +62,14 @@ walletContract.hi = async function (message_hash) {
     await transact("hi", {
         from: account.name,
         message_hash: message_hash
-    })
+    }, "The hash has been added/updated in the table!")
 }
 
 walletContract.hiverify = async function (accountName, message) {
     await transact("hiverify", {
         from: accountName,
         message: message
-    })
+    }, "The message matched the hash and removed the row from the table!")
 }
 
 walletContract.getMessages = async function() {
