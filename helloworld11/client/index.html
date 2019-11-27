@@ -50,7 +50,28 @@
                 </p>
             </div>
         </div>
-        
+
+        <div class='row new-row'>
+            <div class='col-md-4'>
+                Logged in as:
+            </div>
+            <div id="user-account" class='col-md-8'>
+                Val
+            </div>
+            <div class='col-md-4'>
+                Hash:
+            </div>
+            <div id="user-hash" class='col-md-8'>
+                Val
+            </div>
+            <div class='col-md-4'>
+                Last updated:
+            </div>
+            <div id="user-updated" class='col-md-8'>
+                Val
+            </div>    
+        </div>
+
         <div class='row new-row'>
             <div class='col-md-6'>
                 <form>
@@ -71,37 +92,16 @@
                         <label>Message string</label>
                         <input class="form-control"></input>
                     </div>    
-                    <button type="button" class="btn btn-primary">hiverify()</button>
+                    <button type="button" class="btn btn-primary" onclick="hiverifyTx()">hiverify()</button>
                 </form>
             </div>
         </div>
 
         <div class='row new-row'>
             <div align='center'>
-                <div class="alert alert-success" role="alert">
+                <div id="user-alert" class="alert alert-success" role="alert">
                     Alert user
                 </div>
-            </div>
-        </div>
-
-        <div class='row new-row'>
-            <div>
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th>User</th>
-                            <th>Hash</th>
-                            <th>Last updated</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>helloworld11</td>
-                            <td>some hash goes here</td>
-                            <td>29 November 2019 16:23:15</td>
-                        </tr>
-                    </tbody>
-                </table>
             </div>
         </div>
 

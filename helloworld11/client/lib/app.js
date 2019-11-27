@@ -1,27 +1,34 @@
 async function onload() {
-    console.log("web page loading...");
+    updateTable();
+    $("#user-alert").hide();
     stringTosha256();
 }
 
-async function pause(ms) {
-    return new Promise(resolve=>{
-        setTimeout(resolve,ms)
-    })
+async function hiverifyTx() {
+    $("#user-alert").show();
+    $("#user-alert").html("theatheahte")
 }
 
 async function hiTx() {
-    console.log("getting account");
     const message_hash = $("#message_hash").val();
-    const tx = await eosiojs.contract_transact("hi", {
+    await eosiojs.contract_transact("hi", {
         from: CALLING_ACCOUNT,
         message_hash: message_hash
     })
-    console.log(tx);
+    updateTable();
+}
+
+async function updateTable() {
+    const tableRows = await eosiojs.get_table_rows();
+    const row = tableRows.rows[0];
+    
+    $("#user-account").html(row.user);
+    $("#user-hash").html(row.hash);
+    $("#user-updated").html(row.last_updated);
 }
 
 async function stringTosha256() {
     const text = $("#string").val();
     const hash = await sha256(text);
     $("#hashOfString").val(hash);
-    // $("#hashOfString").attr("placeholder", hash);
 }

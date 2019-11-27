@@ -16,8 +16,6 @@ eosiojs.get_account = async function (accountName) {
 
 eosiojs.contract_transact = async function (action, data) {
     try {
-        console.log(eosjsApiInitialized);
-        console.log(await eosiojs.get_account(CALLING_ACCOUNT))
         const result = await eosjsApiInitialized.transact({
         actions: [{
             account: CONTRACT_ACCOUNT,
@@ -32,12 +30,30 @@ eosiojs.contract_transact = async function (action, data) {
         blocksBehind: 3,
         expireSeconds: 30,
         });
+        const txId = result.transaction_id;
+        const url = "https://eosauthority.com/transaction/" + txId + "?network=jungle";
+        const alertHtml = "Success. See transaction <a href='"+url+"'>here</a>";
+        $("#user-alert").addClass('alert-success').removeClass('alert-warning')
+        $("#user-alert").show();
+        $("#user-alert").html(alertHtml);    
         return result;
-        // pre.textContent += '\n\nTransaction pushed!\n\n' + JSON.stringify(result, null, 2);
     } catch (e) {
+        let message = 'Caught exception: ' + e;
+        if (e instanceof eosjs_jsonrpc.RpcError)
+        message += '\n\n' + JSON.stringify(e.json, null, 2);
+        $("#user-alert").addClass('alert-warning').removeClass('alert-success')
+        $("#user-alert").show();
+        $("#user-alert").html(message);    
         console.error(e);
-        // pre.textContent = '\nCaught exception: ' + e;
-        // if (e instanceof eosjs_jsonrpc.RpcError)
-        // pre.textContent += '\n\n' + JSON.stringify(e.json, null, 2);
     }
+}
+
+eosiojs.get_table_rows = async function () {
+    const args = {
+        code: CONTRACT_ACCOUNT,
+        table: "messages",
+        scope: CONTRACT_ACCOUNT,
+        lower_bound: CALLING_ACCOUNT
+    }
+    return await eosjsRpcInitialized.get_table_rows(args);
 }
