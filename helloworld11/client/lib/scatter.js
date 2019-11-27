@@ -1,0 +1,72 @@
+ScatterJS.plugins( new ScatterEOS() )
+let ScatJS = ScatterJS, ScatEOS = new ScatterEOS();
+const JsonRpc = eosjs_jsonrpc.JsonRpc;
+const Api = eosjs_api.Api;
+
+let account, eos;
+const CONTRACT_ACCOUNT = "hello5world1";
+
+const network = ScatterJS.Network.fromJson({
+    blockchain:'eos',
+    chainId:'e70aaab8997e1dfce58fbfac80cbbb8fecec7b99cf982a9444273cbc64c41473',
+    host:'api.jungle.alohaeos.com',
+    port:443,
+    protocol:'https'
+});
+
+const rpc = new JsonRpc(network.fullhost());
+
+async function login() {
+    const connected = await ScatterJS.connect('Hello world app', {network})
+    if(!connected) return displayError("Log in with Scatter to use this app");
+
+    eos = ScatterJS.eos(network, Api, {rpc});
+
+    const id = await ScatterJS.login()
+    if(!id) return displayError('No account could be found');
+    account = ScatterJS.account('eos');
+}
+
+let walletContract = {}
+walletContract.hi = async function (message_hash) {
+    try {
+        const result = await eos.transact({
+            actions: [{
+                account: CONTRACT_ACCOUNT,
+                name: 'hi',
+                authorization: [{
+                    actor: account.name,
+                    permission: account.authority,
+                }],
+                data: {
+                    from: account.name,
+                    message_hash: message_hash
+                },
+            }]
+        }, {
+            blocksBehind: 3,
+            expireSeconds: 30,
+        })
+        const txId = result.transaction_id;
+        const url = "https://eosauthority.com/transaction/" + txId + "?network=jungle";
+        const alertHtml = "Success. See transaction <a href='"+url+"'>here</a>";
+        displaySuccess(alertHtml);
+
+    } catch (e) {
+        console.error(e);
+        let message = 'Caught exception: ' + e;
+        if (e instanceof JsonRpc.RpcError)
+        message += '\n\n' + JSON.stringify(e.json, null, 2);
+        displayError(message)
+    }
+}
+
+walletContract.getMessages = async function() {
+    const args = {
+        code: CONTRACT_ACCOUNT,
+        table: "messages",
+        scope: CONTRACT_ACCOUNT,
+        lower_bound: account.name
+    }
+    return await rpc.get_table_rows(args);
+}

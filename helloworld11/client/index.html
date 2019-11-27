@@ -17,29 +17,20 @@
     <script src='lib/eosjs-20.0.0-dist-web/debug/eosjs-api-debug.js'></script>
     <script src='lib/eosjs-20.0.0-dist-web/debug/eosjs-jsonrpc-debug.js'></script>
     <script src='lib/eosjs-20.0.0-dist-web/debug/eosjs-jssig-debug.js'></script>
-    
+
+    <!-- Scatter signature provider -->
+    <script src="lib/scatter/scatterjs-core.min.js"></script>
+    <script src="lib/scatter/scatterjs-plugin-eosjs2.min.js"></script>
+
     <!-- App styles and logic -->
-    <script src='lib/eosio.js'></script>
+    <script src='lib/utils.js'></script>
+    <script src='lib/scatter.js'></script>
+    <!-- <script src='lib/eosio.js'></script> -->
     <script src='lib/crypto.js'></script>
     <script src='lib/app.js'></script>
     <link rel='stylesheet' href='lib/main.css'>
   </head>
   <body onload="onload()">
-      <!-- 
-          login with scatter button // done in step 2. originally this is with hardcoded private keys
-          display for loggedin user
-
-          text input for message hash
-          button to submit
-
-          text input for message string
-          button to submit
-
-          display results and errors
-
-          display messages table
-       -->
-
     <div class='container'>
         <div class='row new-row'>
             <div align='center'>
@@ -56,19 +47,19 @@
                 Logged in as:
             </div>
             <div id="user-account" class='col-md-8'>
-                Val
+                
             </div>
             <div class='col-md-4'>
                 Hash:
             </div>
             <div id="user-hash" class='col-md-8'>
-                Val
+                
             </div>
             <div class='col-md-4'>
                 Last updated:
             </div>
             <div id="user-updated" class='col-md-8'>
-                Val
+                
             </div>    
         </div>
 
