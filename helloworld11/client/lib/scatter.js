@@ -1,10 +1,10 @@
 ScatterJS.plugins( new ScatterEOS() )
-// let ScatJS = ScatterJS, ScatEOS = new ScatterEOS();
+let ScatJS = ScatterJS, ScatEOS = new ScatterEOS();
 const JsonRpc = eosjs_jsonrpc.JsonRpc;
 const Api = eosjs_api.Api;
 
 let account; // account connected with scatter
-let eos; // instance of eos Api
+let eos; // initialized eosjs.Api
 const CONTRACT_ACCOUNT = "hello5world1";
 
 const network = ScatterJS.Network.fromJson({
