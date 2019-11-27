@@ -14,9 +14,9 @@
     <script src='lib/bootstrap-4.3.1-dist/js/bootstrap.min.js'></script>
 
     <!-- Installattion for browser here https://github.com/EOSIO/eosjs -->
-    <script src='lib/eosjs-20.0.0-dist-web/eosjs-api.js'></script>
-    <script src='lib/eosjs-20.0.0-dist-web/eosjs-jsonrpc.js'></script>
-    <script src='lib/eosjs-20.0.0-dist-web/eosjs-jssig.js'></script>
+    <script src='lib/eosjs-20.0.0-dist-web/debug/eosjs-api-debug.js'></script>
+    <script src='lib/eosjs-20.0.0-dist-web/debug/eosjs-jsonrpc-debug.js'></script>
+    <script src='lib/eosjs-20.0.0-dist-web/debug/eosjs-jssig-debug.js'></script>
     
     <!-- App styles and logic -->
     <script src='lib/eosio.js'></script>
@@ -56,7 +56,7 @@
                 <form>
                     <div class="form-group">
                         <label>Message hash</label>
-                        <input class="form-control"></input>
+                        <input id="message_hash" class="form-control"></input>
                     </div>
                     <button type="button" class="btn btn-primary" onclick="hiTx()">hi()</button>
                 </form>
