@@ -7,18 +7,24 @@
     <title>Hello world</title>
 
     <!-- jquery -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src='lib/jquery-3.4.1.min.js'></script>
 
     <!-- Bootstrap 4 -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href='lib/bootstrap-4.3.1-dist/css/bootstrap.min.css'>
+    <script src='lib/bootstrap-4.3.1-dist/js/bootstrap.min.js'></script>
 
+    <!-- Installattion for browser here https://github.com/EOSIO/eosjs -->
+    <script src='lib/eosjs-20.0.0-dist-web/eosjs-api.js'></script>
+    <script src='lib/eosjs-20.0.0-dist-web/eosjs-jsonrpc.js'></script>
+    <script src='lib/eosjs-20.0.0-dist-web/eosjs-jssig.js'></script>
+    
     <!-- App styles and logic -->
+    <script src='lib/eosio.js'></script>
     <script src='lib/crypto.js'></script>
     <script src='lib/app.js'></script>
     <link rel='stylesheet' href='lib/main.css'>
   </head>
-  <body>
+  <body onload="onload()">
       <!-- 
           login with scatter button // done in step 2. originally this is with hardcoded private keys
           display for loggedin user
@@ -47,12 +53,12 @@
         
         <div class='row new-row'>
             <div class='col-md-6'>
-                <form action="hi()">
+                <form>
                     <div class="form-group">
                         <label>Message hash</label>
                         <input class="form-control"></input>
                     </div>
-                    <button type="submit" class="btn btn-primary">hi()</button>
+                    <button type="button" class="btn btn-primary" onclick="hiTx()">hi()</button>
                 </form>
             </div>
             <div class='col-md-6'>
@@ -65,7 +71,7 @@
                         <label>Message string</label>
                         <input class="form-control"></input>
                     </div>    
-                    <button type="submit" class="btn btn-primary">hiverify()</button>
+                    <button type="button" class="btn btn-primary">hiverify()</button>
                 </form>
             </div>
         </div>
