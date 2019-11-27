@@ -14,6 +14,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 
     <!-- App styles and logic -->
+    <script src='lib/crypto.js'></script>
     <script src='lib/app.js'></script>
     <link rel='stylesheet' href='lib/main.css'>
   </head>
@@ -101,11 +102,11 @@
         <div class='row new-row'>
             <div class='col-md-6'>
                 <label>String</label>
-                <input class="form-control"></input>
+                <input id="string" type="text" class="form-control" oninput="stringTosha256()"></input>
             </div>
             <div class='col-md-6'>
                 <label>Hash of string</label>
-                <input class="form-control"></input>
+                <input id="hashOfString" class="form-control" readonly></input>
             </div>
         </div>
     </div>
