@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "description": "Hello world smart contract",
   "dependencies": {
-    "eoslime": "^1.0.0",
-    "mocha": "^6.2.2"
+    "eoslime": "^2.0.1",
+    "mocha": "^10.1.0"
   },
   "devDependencies": {},
   "scripts": {
